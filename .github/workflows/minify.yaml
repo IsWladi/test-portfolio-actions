@@ -1,9 +1,6 @@
 name: minify
 
-on:
-  push:
-    branches:
-      - main
+on: [push, pull_request]
 
 jobs:
   test:
@@ -21,10 +18,10 @@ jobs:
       uses: amireshoon/minifyAction@main
       with:
         repo: $prepo
-    - name: Minifying Codes
+    - name: Running Tests
       run: |
         minifier.sh $prepo
-    - name: Pushing to minified branch
+    - name: Commiting changes
       uses: actions-js/push@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -32,5 +29,6 @@ jobs:
         branch: minified
         message: Minified css, js and html
         author_name: MinifyAction[bot]
-        author_email: wiuc2000@hotmail.cl
+        author_email: amireshoon-minifyAction@users.noreply.github.com
         force: true
+    name: Minify
